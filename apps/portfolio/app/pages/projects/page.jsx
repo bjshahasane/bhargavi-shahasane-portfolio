@@ -7,7 +7,7 @@ const projects = [
   {
     title: "Restaurant POS System",
     oneLiner:
-      "Full-stack POS to manage orders, tables, menu and billing with role-based access.",
+      "Full-stack POS to to manage orders, tables, menu and billing with role-based access.",
     href: "/projects/restaurant-pos",
     liveUrl: process.env.WEB_POS_POS_URL,
     tags: ["Next.js", "MongoDB", "Node.js", "Redux"],
