@@ -9,7 +9,7 @@ const projects = [
     oneLiner:
       "Full-stack POS to manage orders, tables, menu and billing with role-based access.",
     href: "/projects/restaurant-pos",
-    liveUrl: process.env.NEXT_PUBLIC_POS_URL,
+    liveUrl: process.env.WEB_POS_POS_URL,
     tags: ["Next.js", "MongoDB", "Node.js", "Redux"],
   },
   {
@@ -17,7 +17,7 @@ const projects = [
     oneLiner:
       "Centralized production queue (pending/completed) with dashboards and analytics.",
     href: "/projects/production-management",
-    liveUrl: process.env.NEXT_PUBLIC_PROD_URL,
+    liveUrl: process.env.WEB_POS_PROD_URL,
     tags: ["Next.js", "MongoDB", "Dashboards", "Charts"],
   },
 ];
