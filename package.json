@@ -1,0 +1,17 @@
+{
+  "name": "bhargavi-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:portfolio": "npm run dev --workspace=apps/portfolio",
+    "dev:business-tracker": "npm run dev --workspace=apps/business-tracker",
+    "dev:restaurant-pos": "npm run dev --workspace=apps/restaurant-pos",
+    "build:portfolio": "npm run build --workspace=apps/portfolio",
+    "build:business-tracker": "npm run build --workspace=apps/business-tracker",
+    "build:restaurant-pos": "npm run build --workspace=apps/restaurant-pos"
+  },
+  "packageManager": "npm@10.9.2"
+}
