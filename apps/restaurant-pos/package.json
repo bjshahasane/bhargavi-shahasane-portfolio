@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-   "dev": "node --import ../dns-fix.mjs ./node_modules/.bin/next dev -p 3002",
+    "dev": "node --import ../dns-fix.mjs ./node_modules/.bin/next dev -p 3002",
     "build": "next build",
     "start": "next start -p 3002",
     "lint": "next lint"
@@ -16,7 +16,7 @@
     "bootstrap-icons": "^1.11.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.3",
-    "next": "14.2.3",
+    "next": "14.2.35",
     "notistack": "^3.0.1",
     "react": "^18",
     "react-bootstrap": "^2.10.4",
