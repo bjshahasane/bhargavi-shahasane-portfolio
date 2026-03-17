@@ -223,7 +223,7 @@ const ProjectsSection = ({ onOpen }) => {
               <div className="mt-6 flex gap-4">
 
                 <Link
-                  href={`/projects/${project.slug}`}
+                  href={`pages/projects/${project.slug}`}
                   className="flex-1 rounded-2xl bg-indigo-500 px-4 py-2 text-center text-sm font-medium hover:bg-indigo-600 transition"
                 >
                   Case Study

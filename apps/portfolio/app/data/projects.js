@@ -7,7 +7,7 @@ export const projects = [
     solution: "Built a full-stack POS with real-time order management.",
     tech: ["Next.js", "Redux", "MongoDB", "Node.js"],
     github: "https://github.com/YOUR_USERNAME/restaurant-pos",
-    demo: "https://restaurant-pos.vercel.app"
+    demo: process.env.WEB_POS_POS_URL
   },
   {
     title: "Order & Production Management",
@@ -17,6 +17,6 @@ export const projects = [
     solution: "Built dashboard with order tracking and analytics.",
     tech: ["Next.js", "MongoDB", "Charts"],
     github: "https://github.com/YOUR_USERNAME/business-tracker",
-    demo: "https://production-management.vercel.app"
+    demo: process.env.WEB_POS_PROD_URL
   }
 ];
