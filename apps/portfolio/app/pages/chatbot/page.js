@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 const presetQuestions = [
   "Summarize Bhargavi’s strongest skills in 5 bullets.",
@@ -174,18 +175,12 @@ const ChatbotPage = () => {
                   key={idx}
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${
-                    m.role === "user" ? "justify-end" : "justify-start"
-                  }`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm ${
-                      m.role === "user"
-                        ? "bg-indigo-500 text-white"
-                        : "bg-white/5 border border-white/10 text-slate-200"
+                  className={`flex ${m.role === "user" ? "justify-end" : "justify-start"
                     }`}
-                  >
-                    {m.content}
+                >
+                  <div className={`prose max-w-[80%] rounded-2xl px-4 py-3 text-sm ${m.role === "user" ? "bg-indigo-500 text-white" : "bg-white/5 border border-white/10 text-slate-200"
+                    }`}>
+                    <ReactMarkdown>{m.content}</ReactMarkdown>
                   </div>
                 </motion.div>
               ))}

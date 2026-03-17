@@ -66,7 +66,7 @@ export async function POST(req) {
     });
 
     const data = await response.json();
-    console.log("OpenRouter response:", JSON.stringify(data));
+    // console.log("OpenRouter response:", JSON.stringify(data));
 
     const answer =
       data.choices?.[0]?.message?.content ??
