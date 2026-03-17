@@ -3,29 +3,61 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Timeline from "@/app/components/Timline";
-import { productionSteps } from "@/app/data/timeline-data";
+import { posSteps } from "@/app/data/timeline-data";
 import Image from "next/image";
 
 const screens = [
-  { title: "Login Screen", src: "/pos/login.png" },
-  { title: "Tables Dashboard", src: "/pos/dashboard.png" },
-  { title: "Orders Dashboard", src: "/pos/orders.png" },
-  { title: "Menu Management", src: "/pos/menu.png" },
-  { title: "Order Edit Modal", src: "/pos/edit.png" },
+  {
+    id: "orders",
+    title: "Orders Dashboard",
+    desc: "View and manage orders with status, sorting, and quick actions.",
+    src: "/prod/orders.png",
+  },
+  {
+    id: "modal",
+    title: "Order Create / Edit",
+    desc: "Add products, edit quantities, and calculate totals in real-time.",
+    src: "/prod/edit.png",
+  },
+  {
+    id: "pending",
+    title: "Production Queue",
+    desc: "Centralized pending quantities per product.",
+    src: "/prod/pending.png",
+  },
+  {
+    id: "categories",
+    title: "Create / Edit Categories & Products",
+    desc: "Ensures pending quantities recalculate correctly when orders are edited or fulfilled.",
+    src: "/prod/categories.png",
+  },
+
+  {
+    id: "expenses",
+    title: "Expenses Tracking",
+    desc: "Monitor and manage operational costs and expenses.",
+    src: "/prod/expenses.png",
+  },
+  {
+    id: "dashboard",
+    title: "Analytics Dashboard",
+    desc: "Track order trends,product performance, profits and orders visually.",
+    src: "/prod/analytics.png",
+  },
 ];
 
 const highlights = [
-  "Real-time order tracking",
   "Centralized production queue",
-  "Role-based access",
-  "Optimized UI workflows",
+  "Real-time quantity sync",
+  "Order-edit consistency logic",
+  "Analytics dashboard",
 ];
 
-const RestaurantPOSPage = () => {
+const ProductionManagementPage = () => {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#070A12] px-6 py-14 text-white">
 
-      {/* Background Glow */}
+      {/* Background */}
       <div className="pointer-events-none absolute -top-24 -left-24 h-80 w-80 rounded-full bg-fuchsia-500/25 blur-3xl" />
       <div className="pointer-events-none absolute top-20 -right-24 h-80 w-80 rounded-full bg-cyan-500/25 blur-3xl" />
       <div className="pointer-events-none absolute bottom-10 left-1/3 h-80 w-80 rounded-full bg-amber-400/20 blur-3xl" />
@@ -44,38 +76,24 @@ const RestaurantPOSPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-300 via-cyan-300 to-fuchsia-300 text-transparent bg-clip-text"
           >
-            Restaurant POS System
+            Order & Production Management System
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="mt-4 max-w-2xl mx-auto text-slate-300"
-          >
-            A full-stack system to manage orders, automate production tracking,
-            and eliminate manual errors in restaurant workflows.
-          </motion.p>
+          <p className="mt-4 max-w-2xl mx-auto text-slate-300">
+            A system designed to eliminate inconsistencies in production tracking by
+            centralizing order data and automating pending vs completed quantities.
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-6 flex justify-center gap-4"
-          >
+          <div className="mt-6 flex justify-center gap-4">
             <a
-              href={process.env.NEXT_PUBLIC_POS_URL}
+              href={process.env.NEXT_PUBLIC_PROD_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-xl bg-white/10 border border-white/20 px-5 py-2 text-sm hover:bg-white/20 transition"
+              className="rounded-xl border border-white/10 bg-white/5 px-5 py-2 text-sm hover:bg-white/10 transition"
             >
               Live Demo
             </a>
-
-            <a className="rounded-xl border border-white/10 px-5 py-2 text-sm hover:bg-white/10 transition">
-              View Code
-            </a>
-          </motion.div>
+          </div>
         </div>
 
         {/* HIGHLIGHTS */}
@@ -96,21 +114,21 @@ const RestaurantPOSPage = () => {
         {/* PROBLEM + SOLUTION */}
         <div className="mt-12 grid md:grid-cols-2 gap-6">
           <Card title="Problem">
-            Restaurants often rely on manual tracking, leading to order errors,
-            billing mismatches, and lack of real-time visibility.
+            Manual tracking leads to inconsistencies when orders are edited,
+            canceled, or fulfilled — resulting in incorrect production quantities.
           </Card>
 
           <Card title="Solution">
-            Built a centralized system that manages orders, tracks production,
-            and ensures consistent real-time updates across the app.
+            Built a centralized system that automatically recalculates pending
+            quantities and keeps production tracking consistent across all changes.
           </Card>
         </div>
 
         {/* SYSTEM FLOW */}
         <div className="mt-12">
           <Timeline
-            title="Order Lifecycle"
-            steps={productionSteps}
+            title="System Workflow"
+            steps={posSteps}
           />
         </div>
 
@@ -123,20 +141,20 @@ const RestaurantPOSPage = () => {
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "State Synchronization",
-                desc: "Maintained consistency between orders and production queue.",
+                title: "Data Consistency Logic",
+                desc: "Recalculates pending quantities whenever orders are updated or fulfilled.",
               },
               {
-                title: "Derived Data Logic",
-                desc: "Handled pending vs completed quantities efficiently.",
+                title: "Centralized Queue Design",
+                desc: "Single source of truth for production tracking per product type.",
               },
               {
-                title: "API Architecture",
-                desc: "Modular Next.js API routes for scalable backend.",
+                title: "Controlled Update Flow",
+                desc: "Completed quantities updated from a single page to avoid conflicts.",
               },
               {
-                title: "UI State Management",
-                desc: "Managed complex interactions using Redux.",
+                title: "Dashboard Thinking",
+                desc: "Separated ‘what to do next’ (pending) and ‘what happened’ (analytics).",
               },
             ].map((item, i) => (
               <motion.div
@@ -160,44 +178,48 @@ const RestaurantPOSPage = () => {
           </h2>
 
           <div className="mt-6 grid md:grid-cols-2 gap-6">
-            {screens.map((screen, i) => (
+            {screens.map((s, i) => (
               <motion.div
-                key={screen.title}
+                key={s.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.08 }}
                 whileHover={{ scale: 1.03 }}
                 className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden"
               >
-                <div className="relative aspect-[16/9]">
+                <div className="relative aspect-[16/9] bg-black">
                   <Image
-                    src={screen.src}
-                    alt={screen.title}
+                    src={s.src}
+                    alt={s.title}
                     fill
                     quality={100}
-                    priority={i === 0}
-                    className="object-contain bg-black"
+                    className="object-contain transition duration-500 group-hover:scale-105"
                   />
                 </div>
 
-                <div className="p-4 text-sm text-slate-300">
-                  {screen.title}
+                <div className="p-4">
+                  <p className="text-sm font-semibold text-slate-100">
+                    {s.title}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-300">
+                    {s.desc}
+                  </p>
                 </div>
               </motion.div>
             ))}
           </div>
         </div>
 
-        {/* TRY */}
+        {/* TRY THIS */}
         <div className="mt-12 rounded-3xl border border-white/10 bg-white/5 p-6">
           <h2 className="text-lg font-semibold text-slate-100">
             Try This
           </h2>
 
           <ul className="mt-3 text-sm text-slate-300 list-disc pl-5 space-y-2">
-            <li>Create an order with multiple products</li>
-            <li>Edit quantities and observe updates</li>
-            <li>Mark order fulfilled and track production</li>
+            <li>Create an order and add multiple products</li>
+            <li>Edit the order and observe pending updates</li>
+            <li>Mark as fulfilled and check completed quantities</li>
           </ul>
         </div>
 
@@ -206,7 +228,7 @@ const RestaurantPOSPage = () => {
   );
 };
 
-export default RestaurantPOSPage;
+export default ProductionManagementPage;
 
 /* Reusable Card */
 const Card = ({ title, children }) => {
