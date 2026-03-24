@@ -13,7 +13,7 @@ const projects = [
     tags: ["Next.js", "MongoDB", "Node.js", "Redux"],
   },
   {
-    title: "Order & Production Management System",
+    title: "Order-Driven Production System",
     oneLiner:
       "Centralized production queue (pending/completed) with dashboards and analytics.",
     href: "pages/projects/production-management",

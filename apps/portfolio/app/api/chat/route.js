@@ -36,7 +36,7 @@ Solution: Full-stack POS app for orders, tables, menu items, billing and role-ba
 Tech: Next.js (App Router), Node.js, MongoDB, Redux-Thunk, deployed on Vercel.
 Skills demonstrated: CRUD (orders/menu/users), complex UI forms + state management, API integration + data modeling.
 
-## Order & Production Management System
+## Order-Driven Production System
 Problem: Manual production tracking causes mismatched stock and delays.
 Solution: Order + production system with modal-based editing, centralized production queue (pending/completed), dashboards with charts.
 Tech: Next.js, MongoDB, React-Bootstrap, charts.

@@ -156,8 +156,8 @@ const Ticker = () => {
       <div className="relative h-10">
         <motion.div
           className="absolute left-0 flex h-10 items-center gap-6 px-4"
-          animate={{ x: [0, -900] }}
-          transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+          animate={{ x: ["0%", "-15%"] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
         >
           {headlineWords.map((w) => (
             <span

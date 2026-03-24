@@ -7,7 +7,7 @@ A Turborepo monorepo containing my portfolio and projects, all deployed on Verce
 | App | Description | Local Port |
 |-----|-------------|------------|
 | `apps/portfolio` | Personal portfolio website | 3000 |
-| `apps/business-tracker` | Business order & expense tracker (Scentique) | 3001 |
+| `apps/business-tracker` | Order-Driven Production System | 3001 |
 | `apps/restaurant-pos` | Restaurant Point-of-Sale system | 3002 |
 
 ## Getting Started

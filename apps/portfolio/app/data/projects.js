@@ -10,7 +10,7 @@ export const projects = [
     demo: process.env.NEXT_PUBLIC_POS_URL
   },
   {
-    title: "Order & Production Management",
+    title: "Order-Driven Production System",
     slug: "production-management",
     oneLiner: "Production queue with analytics dashboard.",
     problem: "Manufacturing teams struggle to track production queues.",

@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Timeline from "@/app/components/Timline";
-import { productionSteps } from "@/app/data/timeline-data";
+// import {Card} from "@/app/components/UI";
+import { posSteps } from "@/app/data/timeline-data";
 import Image from "next/image";
 
 const screens = [
@@ -53,8 +54,8 @@ const RestaurantPOSPage = () => {
             transition={{ delay: 0.2 }}
             className="mt-4 max-w-2xl mx-auto text-slate-300"
           >
-            A full-stack system to manage orders, automate production tracking,
-            and eliminate manual errors in restaurant workflows.
+            A full-stack Restaurant POS system built to streamline order management, automate billing, and maintain real-time consistency between orders and production.
+            The system reduces manual errors, improves operational visibility, and provides a structured workflow for handling restaurant operations end-to-end.
           </motion.p>
 
           <motion.div
@@ -96,13 +97,50 @@ const RestaurantPOSPage = () => {
         {/* PROBLEM + SOLUTION */}
         <div className="mt-12 grid md:grid-cols-2 gap-6">
           <Card title="Problem">
-            Restaurants often rely on manual tracking, leading to order errors,
-            billing mismatches, and lack of real-time visibility.
+            <div className="space-y-4">
+              <p className="mt-3 text-sm text-slate-300">
+                Most restaurants rely on manual or semi-digital systems where orders, billing,
+                and production are handled separately.
+              </p>
+
+              <ul className="mt-4 list-disc pl-5 space-y-2 text-sm text-slate-300">
+                <li>Incorrect orders due to manual entry errors</li>
+                <li>Billing mismatches and calculation mistakes</li>
+                <li>No real-time visibility of active orders</li>
+                <li>Difficulty tracking table occupancy and order status</li>
+                <li>Lack of synchronization between order-taking and kitchen preparation</li>
+              </ul>
+
+              <p className="mt-4 text-sm text-slate-300">
+                As the number of orders increases, these inefficiencies directly impact speed,
+                accuracy, and overall customer experience.
+              </p>
+            </div>
+
+
           </Card>
 
           <Card title="Solution">
-            Built a centralized system that manages orders, tracks production,
-            and ensures consistent real-time updates across the app.
+            <div className="space-y-4">
+              <p className="mt-3 text-sm text-slate-300">
+                Built a centralized POS system that manages the entire order lifecycle — from order creation
+                to fulfillment — within a single interface.
+              </p>
+
+              <ul className="mt-4 list-disc pl-5 space-y-2 text-sm text-slate-300">
+                <li>Unified order and billing system</li>
+                <li>Real-time updates across frontend UI and backend</li>
+                <li>Automated total calculation including discounts and additional charges</li>
+                <li>Table-based order tracking for better visibility</li>
+                <li>Editable orders with consistent state updates</li>
+              </ul>
+
+              <p className="mt-4 text-sm text-slate-300">
+                This approach ensures accurate data handling, reduces manual intervention,
+                and maintains consistency across the entire system.
+              </p>
+            </div>
+
           </Card>
         </div>
 
@@ -110,7 +148,7 @@ const RestaurantPOSPage = () => {
         <div className="mt-12">
           <Timeline
             title="Order Lifecycle"
-            steps={productionSteps}
+            steps={posSteps}
           />
         </div>
 
@@ -124,19 +162,19 @@ const RestaurantPOSPage = () => {
             {[
               {
                 title: "State Synchronization",
-                desc: "Maintained consistency between orders and production queue.",
+                desc: "Ensured consistent data flow between frontend UI and backend by updating order states centrally, preventing mismatch between displayed and stored data.",
               },
               {
                 title: "Derived Data Logic",
-                desc: "Handled pending vs completed quantities efficiently.",
+                desc: "Implemented dynamic calculations for totals, discounts, and final billing values using derived state instead of storing redundant data.",
               },
               {
                 title: "API Architecture",
-                desc: "Modular Next.js API routes for scalable backend.",
+                desc: "Designed modular API routes using Next.js for handling CRUD operations, enabling scalable and maintainable backend logic.",
               },
               {
                 title: "UI State Management",
-                desc: "Managed complex interactions using Redux.",
+                desc: "Managed complex UI interactions such as modals, form updates, and live calculations using structured state management patterns.",
               },
             ].map((item, i) => (
               <motion.div
@@ -195,9 +233,10 @@ const RestaurantPOSPage = () => {
           </h2>
 
           <ul className="mt-3 text-sm text-slate-300 list-disc pl-5 space-y-2">
-            <li>Create an order with multiple products</li>
-            <li>Edit quantities and observe updates</li>
-            <li>Mark order fulfilled and track production</li>
+            <li>Create an order by selecting table</li>
+            <li>Add multiple products and apply discounts</li>
+            <li>Edit the order and observe real-time updates</li>
+            <li>Mark the order as completed and see table status update</li>
           </ul>
         </div>
 
@@ -213,7 +252,7 @@ const Card = ({ title, children }) => {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
       <h2 className="text-lg font-semibold text-slate-100">{title}</h2>
-      <p className="mt-3 text-sm text-slate-300">{children}</p>
+      <div className="mt-3 text-sm text-slate-300">{children}</div>
     </div>
   );
 };

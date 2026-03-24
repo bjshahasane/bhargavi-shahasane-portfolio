@@ -1,61 +1,60 @@
   export const productionSteps = [
   {
     title: "Order Creation",
-    desc: "User creates an order using a modal-based UI with product catalogue selection.",
-    highlight: "Handles dynamic product arrays + real-time totals",
+    desc: "Orders are created with multiple products, defining what needs to be produced.",
+    highlight: "Drives production directly from order data",
   },
   {
-    title: "Queue Synchronization",
-    desc: "Each product is mapped to a centralized production queue entry.",
-    highlight: "Prevents duplicate tracking across orders",
+    title: "Order Editing",
+    desc: "Orders can be updated or modified, with all changes reflected in production requirements.",
+    highlight: "Ensures production data stays in sync with order changes",
   },
   {
-    title: "Pending Calculation",
-    desc: "Pending quantities auto-update when orders are created, edited, or deleted.",
-    highlight: "Core logic ensures data consistency",
+    title: "Production Requirement Tracking",
+    desc: "System aggregates all orders to calculate total quantities of each product that need to be produced.",
+    highlight: "Provides a clear view of pending production workload",
   },
   {
-    title: "Production Tracking",
-    desc: "Kitchen updates completed quantities from a single controlled interface.",
-    highlight: "Avoids scattered updates across system",
+    title: "Centralized Update Flow",
+    desc: "All updates to orders and production data are handled from a single interface.",
+    highlight: "Prevents conflicting updates and maintains consistency",
   },
   {
-    title: "Fulfillment Sync",
-    desc: "Marking orders as fulfilled updates production data accordingly.",
-    highlight: "Bi-directional data sync (orders ↔ production)",
+    title: "Expense & Profit Tracking",
+    desc: "System records expenses and calculates profit or loss based on order data.",
+    highlight: "Connects operational data with financial insights",
   },
   {
-    title: "Analytics Layer",
-    desc: "Data is aggregated into charts showing trends across time.",
-    highlight: "Transforms raw data into business insights",
+    title: "Analytics & Visualization",
+    desc: "Order and production data is visualized through charts to analyze trends over time.",
+    highlight: "Transforms raw data into actionable insights",
   },
 ];
 
 export const posSteps = [
-  
   {
     title: "Menu Management",
-    desc: "Admin can create, update, and organize product catalogue.",
-    highlight: "Dynamic menu rendering",
+    desc: "Admin can create, update, and manage the product catalogue dynamically.",
+    highlight: "Supports dynamic menu rendering and updates",
   },
   {
     title: "Order Processing",
-    desc: "Orders are created with multiple products and live calculations.",
-    highlight: "Handles nested product structures",
+    desc: "Orders are created with multiple products, with totals calculated automatically in real time.",
+    highlight: "Handles multiple products with live pricing calculations",
   },
   {
     title: "Order Editing",
-    desc: "Orders can be modified via modal without breaking data integrity.",
-    highlight: "Complex state handling in UI",
+    desc: "Orders can be edited through a modal interface without breaking existing data consistency.",
+    highlight: "Maintains state integrity during complex updates",
   },
   {
     title: "Production Integration",
-    desc: "Orders directly impact the production queue automatically.",
-    highlight: "Bridges frontend actions with backend logic",
+    desc: "Order data automatically updates the production tracking system based on product quantities.",
+    highlight: "Seamless synchronization between orders and production data",
   },
-  {
-    title: "Dashboard Insights",
-    desc: "Admins can track order trends and product demand visually.",
-    highlight: "Business-focused UX decisions",
-  },
+  // {
+  //   title: "Dashboard Insights",
+  //   desc: "Admins can view order trends and product performance through visual charts and filters.",
+  //   highlight: "Transforms operational data into actionable insights",
+  // },
 ];

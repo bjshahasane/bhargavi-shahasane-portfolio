@@ -76,12 +76,12 @@ const ProductionManagementPage = () => {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-300 via-cyan-300 to-fuchsia-300 text-transparent bg-clip-text"
           >
-            Order & Production Management System
+            Order-Driven Production System
           </motion.h1>
 
           <p className="mt-4 max-w-2xl mx-auto text-slate-300">
-            A system designed to eliminate inconsistencies in production tracking by
-            centralizing order data and automating pending vs completed quantities.
+            A production management system designed to track order-driven production requirements and provide real-time visibility into what needs to be made.
+            The system centralizes order updates, aggregates production data, and delivers business insights through profit, expense tracking, and analytics dashboards.
           </p>
 
           <div className="mt-6 flex justify-center gap-4">
@@ -114,13 +114,39 @@ const ProductionManagementPage = () => {
         {/* PROBLEM + SOLUTION */}
         <div className="mt-12 grid md:grid-cols-2 gap-6">
           <Card title="Problem">
-            Manual tracking leads to inconsistencies when orders are edited,
-            canceled, or fulfilled — resulting in incorrect production quantities.
-          </Card>
+            <p className="mt-3 text-sm text-slate-300">
+              In many small-scale operations, production planning is done manually or spread across multiple tools.
+            </p>
 
+            <ul className="mt-4 list-disc pl-5 space-y-2 text-sm text-slate-300">
+              <li>No clear view of how much of each product needs to be produced</li>
+              <li>Errors when orders are edited or updated</li>
+              <li>Duplicate or missed production entries</li>
+              <li>Lack of coordination between order handling and production planning</li>
+              <li>No structured way to analyze profit, expenses, or trends</li>
+            </ul>
+
+            <p className="mt-4 text-sm text-slate-300">
+              As order volume increases, these issues create confusion, inefficiency, and poor decision-making.
+            </p>
+          </Card>
           <Card title="Solution">
-            Built a centralized system that automatically recalculates pending
-            quantities and keeps production tracking consistent across all changes.
+            <p className="mt-3 text-sm text-slate-300">
+              Built a centralized system that directly connects orders to production requirements, ensuring that all production data is derived from actual orders.
+            </p>
+
+            <ul className="mt-4 list-disc pl-5 space-y-2 text-sm text-slate-300">
+              <li>Orders automatically define what needs to be produced</li>
+              <li>Editing orders instantly updates production requirements</li>
+              <li>Aggregated view of total items to be made</li>
+              <li>Centralized interface for managing all updates</li>
+              <li>Integrated expense and profit tracking</li>
+              <li>Visual dashboards for analyzing trends</li>
+            </ul>
+
+            <p className="mt-4 text-sm text-slate-300">
+              This approach eliminates manual tracking and ensures consistency across operations and analytics.
+            </p>
           </Card>
         </div>
 
@@ -141,20 +167,20 @@ const ProductionManagementPage = () => {
           <div className="mt-6 grid md:grid-cols-2 gap-6">
             {[
               {
-                title: "Data Consistency Logic",
-                desc: "Recalculates pending quantities whenever orders are updated or fulfilled.",
+                title: "Data Aggregation Logic",
+                desc: "Combined multiple orders to calculate total production requirements per product, ensuring an accurate view of pending workload.",
               },
               {
-                title: "Centralized Queue Design",
-                desc: "Single source of truth for production tracking per product type.",
+                title: "State Synchronization",
+                desc: "Ensured that any updates to orders (add/edit/delete) are immediately reflected in production data without inconsistencies.",
               },
               {
-                title: "Controlled Update Flow",
-                desc: "Completed quantities updated from a single page to avoid conflicts.",
+                title: "Centralized Update Flow",
+                desc: "Designed the system so all updates are handled from a single interface, avoiding conflicting or duplicate data changes.",
               },
               {
-                title: "Dashboard Thinking",
-                desc: "Separated ‘what to do next’ (pending) and ‘what happened’ (analytics).",
+                title: "Financial Data Integration",
+                desc: "Integrated expense tracking and profit/loss calculation based on order data to connect operations with business insights.",
               },
             ].map((item, i) => (
               <motion.div
@@ -217,9 +243,10 @@ const ProductionManagementPage = () => {
           </h2>
 
           <ul className="mt-3 text-sm text-slate-300 list-disc pl-5 space-y-2">
-            <li>Create an order and add multiple products</li>
-            <li>Edit the order and observe pending updates</li>
-            <li>Mark as fulfilled and check completed quantities</li>
+            <li>Create multiple orders with different products</li>
+            <li>Edit an order and observe how production requirements update</li>
+            <li>Add expenses and track profit or loss</li>
+            <li>Explore charts to analyze trends over time</li>
           </ul>
         </div>
 
@@ -235,7 +262,7 @@ const Card = ({ title, children }) => {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6">
       <h2 className="text-lg font-semibold text-slate-100">{title}</h2>
-      <p className="mt-3 text-sm text-slate-300">{children}</p>
+      <div className="mt-3 text-sm text-slate-300">{children}</div>
     </div>
   );
 };
