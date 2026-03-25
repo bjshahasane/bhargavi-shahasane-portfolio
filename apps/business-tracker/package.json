@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node --import ../dns-fix.mjs ./node_modules/.bin/next dev -p 3001",
+    "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint"
@@ -12,6 +12,7 @@
     "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
     "chart.js": "^4.5.0",
+    "dns2": "^2.1.0",
     "lucide-react": "^0.535.0",
     "mongodb": "^6.20.0",
     "mongoose": "^8.19.2",
