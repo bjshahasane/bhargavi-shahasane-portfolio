@@ -146,7 +146,7 @@ const Ticker = () => {
     <div className="mt-10 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
       <div className="flex items-center gap-3 border-b border-white/10 px-4 py-2">
         <span className="text-xs uppercase tracking-widest text-slate-300">
-          Breaking
+          Breaking News -
         </span>
         <span className="text-xs text-slate-400">
           UIs with custom web solutions
