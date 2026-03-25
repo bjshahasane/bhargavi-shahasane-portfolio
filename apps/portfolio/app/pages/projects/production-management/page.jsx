@@ -93,6 +93,13 @@ const ProductionManagementPage = () => {
             >
               Live Demo
             </a>
+             <a 
+            href="https://github.com/bjshahasane/my-business-tracker-app"
+              target="_blank"              
+              rel="noopener noreferrer"
+            className="rounded-xl border border-white/10 px-5 py-2 text-sm hover:bg-white/10 transition">
+              View Code
+            </a>
           </div>
         </div>
 

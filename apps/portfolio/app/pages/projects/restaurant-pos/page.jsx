@@ -73,7 +73,11 @@ const RestaurantPOSPage = () => {
               Live Demo
             </a>
 
-            <a className="rounded-xl border border-white/10 px-5 py-2 text-sm hover:bg-white/10 transition">
+            <a 
+            href="https://github.com/bjshahasane/restraunt-pos"
+              target="_blank"              
+              rel="noopener noreferrer"
+            className="rounded-xl border border-white/10 px-5 py-2 text-sm hover:bg-white/10 transition">
               View Code
             </a>
           </motion.div>

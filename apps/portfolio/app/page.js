@@ -252,6 +252,17 @@ const ProjectsSection = ({ onOpen }) => {
               bhargavi.shahasane@outlook.com
             </span>
           </p>
+          <p>
+            LinkedIn:{" "}
+            <a
+              href="https://www.linkedin.com/in/bhargavi-shahasane/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-indigo-300 hover:underline"
+            >
+             https://www.linkedin.com/in/bhargavi-shahasane-89a7041b0/
+            </a>
+          </p>
         </div>
 
       </div>
