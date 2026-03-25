@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
-import Link from 'next/link';
 import Layout from '../../components/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectTable, fetchOrders } from '../../slices/ordersSlice';
@@ -14,73 +13,134 @@ const Tables = () => {
 
   const store = useSelector((state) => state.orderReducer);
   const [ordersArr, setOrdersArr] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const tableNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const tableNumbers = Array.from({ length: 10 }, (_, i) => i + 1);
 
   useEffect(() => {
-    const token = localStorage.getItem('token'); // Retrieve the JWT token from local storage
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      // Redirect to login if no token is found
       router.push('/pages/createUser');
       return;
     }
-    dispatch(fetchMenu());
-    dispatch(fetchOrders({ isTableCheck: true,dateFilter: "today" }));
-  }, [dispatch]);
+
+    const loadData = async () => {
+      setLoading(true);
+      await dispatch(fetchMenu());
+      await dispatch(fetchOrders({ isTableCheck: true, dateFilter: "today" }));
+      setLoading(false);
+    };
+
+    loadData();
+  }, [dispatch, router]);
 
   useEffect(() => {
-    if (store.orders.orders) {
+    if (store.orders?.orders) {
       setOrdersArr(store.orders.orders);
     }
   }, [store.orders]);
 
   const isTableUnpaid = (tableId) => {
-    return ordersArr.some((order) => {
-      return Number(order.tableId) === tableId && order.status === 'Unpaid';
-    });
+    return ordersArr.some(
+      (order) =>
+        Number(order.tableId) === tableId &&
+        order.status === 'Unpaid'
+    );
   };
 
   const getOrderForTable = (tableId) => {
-    const order = ordersArr.find((order) => Number(order.tableId) === tableId && order.status === 'Unpaid');
+    const order = ordersArr.find(
+      (order) =>
+        Number(order.tableId) === tableId &&
+        order.status === 'Unpaid'
+    );
     return order ? order.orderId : null;
   };
 
   const handleTableClick = (tableId) => {
     const orderId = getOrderForTable(tableId);
-    dispatch(selectTable(tableId))
+    dispatch(selectTable(tableId));
+
     if (orderId) {
-      // Redirect to order details page if the table is occupied
       router.push(`/pages/menus/${tableId}/${orderId}`);
     } else {
-      // Redirect to the menu page if the table is vacant
       router.push(`/pages/menus/${tableId}`);
     }
   };
 
   const renderedTables = useMemo(() => {
-    return tableNumbers.map((tableId) => (
-      <div
-        key={tableId}
-        className={`card col-sm-5 col-md-2 m-2 table-card border-0 ${isTableUnpaid(tableId) ? 'disabled-link' : ''
-          }`}
-        onClick={() => handleTableClick(tableId)}
-      >
-        {/* <Link href={`/pages/menus/${tableId}`}> */}
-        <div className="card-body">
-          <h5 className="card-title">Table {tableId}</h5>
-          <p className="card-text">{isTableUnpaid(tableId) ? 'Occupied' : 'Vacant'}</p>
+    return tableNumbers.map((tableId) => {
+      const isOccupied = isTableUnpaid(tableId);
+
+      return (
+        <div
+          key={tableId}
+          className="col-6 col-sm-4 col-md-3 col-lg-2 mb-4"
+        >
+          <div
+            className={`card table-card h-100 border-0 shadow-sm ${
+              isOccupied ? 'occupied-card' : 'vacant-card'
+            }`}
+            onClick={() => handleTableClick(tableId)}
+            style={{ cursor: 'pointer' }}
+          >
+            <div className="card-body text-center d-flex flex-column justify-content-center">
+              <h5 className="card-title mb-2">Table {tableId}</h5>
+
+              <span
+                className={`badge ${
+                  isOccupied ? 'bg-danger' : 'bg-success'
+                }`}
+              >
+                {isOccupied ? 'Occupied' : 'Vacant'}
+              </span>
+            </div>
+          </div>
         </div>
-        {/* </Link> */}
-      </div>
-    ));
+      );
+    });
   }, [ordersArr]);
 
   return (
     <Layout>
-      <div className="container">
-        <div className="row flex-wrap">{renderedTables}</div>
+      <div className="container py-4">
+        <h3 className="mb-4">Tables Overview</h3>
+
+        {loading ? (
+          <div className="text-center mt-5">Loading tables...</div>
+        ) : (
+          <div className="row">{renderedTables}</div>
+        )}
       </div>
+
+      {/* Custom Styling */}
+      <style jsx>{`
+        .table-card {
+          transition: all 0.3s ease;
+          border-radius: 12px;
+        }
+
+        .table-card:hover {
+          transform: translateY(-5px);
+        }
+
+        .occupied-card {
+          background-color: #ffe5e5;
+        }
+
+        .occupied-card:hover {
+          background-color: #ffcccc;
+        }
+
+        .vacant-card {
+          background-color: #e6ffed;
+        }
+
+        .vacant-card:hover {
+          background-color: #ccffd9;
+        }
+      `}</style>
     </Layout>
   );
 };

@@ -46,7 +46,7 @@ const Orders = () => {
 
     const handleOrderClick = (order) => {
         setSelectedOrder({
-            tableId: order.tableId,
+            tableid: order.tableId,
             orderId: order.orderId,
             total: order.total,
             orderStatus: order.status,
@@ -80,25 +80,27 @@ const Orders = () => {
 
             if (response.ok) {
                 dispatch(fetchOrders({ currentPage, sortOrder, dateFilter }));
-                dispatch(showNotification(({message:`Order Deleted successfully`,type:"success"})));
+                dispatch(showNotification(({ message: `Order Deleted successfully`, type: "success" })));
 
                 handleClose();
             } else {
                 const errorData = await response.json();
                 console.error(`Error: ${errorData.message}`);
-                dispatch(showNotification(({message:`Error: ${errorData.message}`,type:"error"})));
+                dispatch(showNotification(({ message: `Error: ${errorData.message}`, type: "error" })));
             }
         } catch (error) {
             console.error('Failed to delete order:', error);
-            dispatch(showNotification(({message:`Error: Failed to delete order`,type:"error"})));
+            dispatch(showNotification(({ message: `Error: Failed to delete order`, type: "error" })));
         }
     };
 
     return (
         <Layout>
             <div className="container">
-                <div className="row flex-wrap justify-content-between">
-                    <div className="d-flex col-md-9 p-3 flex-column">
+                <div className="row">
+
+                    {/* LEFT SIDE */}
+                    <div className="col-12 col-xl-8 d-flex flex-column p-2 p-md-3">
                         <div className="sort-controls row col-md-12">
                             <div className='col-md-3'>
                                 <label htmlFor="sortOrder">Sort by Date:</label>
@@ -129,51 +131,61 @@ const Orders = () => {
                                 </select>
                             </div>
                         </div>
-
-                        <table className="table mt-1" style={{ height: 'fit-content' }}>
-                            <thead>
-                                <tr>
-                                    <th scope="col">Order</th>
-                                    <th scope="col">Table</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Discounted Total</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {ordersArr.map((order) => (
-                                    <tr key={order.orderId} onClick={() => handleOrderClick(order)}>
-                                        <td>#{order.orderId}</td>
-                                        <td>{order.tableId}</td>
-                                        <td>{(order.date).split('T')[0]}</td>
-                                        <td>{(order.date).split('T')[1]}</td>
-                                        <td>{formatCurrency(order.total)}</td>
-                                        <td>{formatCurrency(order.discountTotal)}</td>
-                                        <td>
-                                            <div
-                                                className={`border ${order.status === 'Unpaid' ? 'unpaid-yellow' : 'paid-gray'} 
-                                                d-flex justify-content-center align-items-center p-1 rounded text-white`}
-                                            >
-                                                {order.status}
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {order.status === 'Unpaid' && (
-                                                <button
-                                                    className="btn btn-danger"
-                                                    onClick={() => handleDeletePopUp(order.orderId)}
-                                                >
-                                                    Delete
-                                                </button>
-                                            )}
-                                        </td>
+                        <div className="table-responsive">
+                            <table className="table mt-1" style={{ height: 'fit-content' }}>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Order</th>
+                                        <th scope="col">Table</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Time</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Discounted Total</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {ordersArr.map((order) => (
+                                        <tr key={order.orderId} onClick={() => handleOrderClick(order)}>
+                                            <td>#{order.orderId}</td>
+                                            <td>{order.tableId}</td>
+                                            <td>
+                                                {new Date(order.date).toLocaleDateString('en-IN')}
+                                            </td>
+
+                                            <td>
+                                                {new Date(order.date).toLocaleTimeString('en-IN', {
+                                                    hour: '2-digit',
+                                                    minute: '2-digit',
+                                                })}
+                                            </td>
+                                            <td>{formatCurrency(order.total)}</td>
+                                            <td>{formatCurrency(order.discountTotal)}</td>
+                                            <td>
+                                                <div
+                                                    className={`border ${order.status === 'Unpaid' ? 'unpaid-yellow' : 'paid-gray'} 
+                                                d-flex justify-content-center align-items-center p-1 rounded text-white`}
+                                                >
+                                                    {order.status}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {order.status === 'Unpaid' && (
+                                                    <button
+                                                        className="btn btn-danger"
+                                                        onClick={() => handleDeletePopUp(order.orderId)}
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                )}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+
 
                         {totalPages > 1 && (
                             <nav aria-label="Page navigation example">
@@ -230,7 +242,9 @@ const Orders = () => {
                     </div>
 
                     {selectedOrder && (
-                        <TableDetails orderObj={selectedOrder} />
+                        <div className="col-12 col-xl-4">
+                            <TableDetails orderObj={selectedOrder} />
+                        </div>
                     )}
                 </div>
             </div>
