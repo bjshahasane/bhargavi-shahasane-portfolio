@@ -11,27 +11,26 @@ import {
 const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) => {
   const [categories, setCategories] = useState([]);
 
-  // Fetch categories + products from API
+  // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
         const res = await fetch("/api/categories", { cache: "no-store" });
-        if (!res.ok) throw new Error("Failed to fetch categories");
         const data = await res.json();
         setCategories(data);
       } catch (err) {
-        console.error("Error fetching categories:", err);
+        console.error(err);
       }
     };
 
     if (show) fetchCategories();
   }, [show]);
 
-  // Auto calculate totals
+  // Auto totals
   useEffect(() => {
     const subTotal = form.products.reduce((sum, p) => sum + p.price * p.quantity, 0);
-    let discountAmount = 0;
 
+    let discountAmount = 0;
     if (form.discountType === 'percent') {
       discountAmount = (parseFloat(form.discount) || 0) * subTotal / 100;
     } else if (form.discountType === 'rs') {
@@ -72,30 +71,33 @@ const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) 
           ...prevForm.products,
           { id: product.id, name: product.name, price: product.price, quantity: 1, type: categoryType }
         ];
-      } else {
-        return prevForm;
-      }
+      } else return prevForm;
 
       return { ...prevForm, products: updatedProducts };
     });
   };
 
   const handleSubmit = () => {
-    const totalBeforeShipping = form.products.reduce((sum, p) => sum + p.price * p.quantity, 0);
-    const totalAfterShipping = totalBeforeShipping + parseFloat(form.shipping || 0) - parseFloat(form.discount || 0);
-
-    onSubmit({ ...form, totalBeforeShipping, totalAfterShipping });
+    onSubmit(form);
   };
 
   return (
-    <Modal show={show} onHide={onClose} size="lg">
+    <Modal
+      show={show}
+      onHide={onClose}
+      size="lg"
+      fullscreen="md-down"   // 🔥 FULLSCREEN ON MOBILE
+    >
       <ModalHeader closeButton>
         <ModalTitle>{isEditMode ? 'Edit Order' : 'Add Order'}</ModalTitle>
       </ModalHeader>
-      <ModalBody>
+
+      {/* SCROLLABLE BODY */}
+      <ModalBody style={{ maxHeight: '70vh', overflowY: 'auto' }}>
         <Form>
-          {/* Customer Info */}
-          <FormGroup className="mb-3 col-md-9">
+
+          {/* CUSTOMER */}
+          <FormGroup className="mb-3">
             <FormLabel>Customer Name</FormLabel>
             <FormControl
               type="text"
@@ -105,7 +107,7 @@ const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) 
             />
           </FormGroup>
 
-          <FormGroup className="mb-3 col-md-9">
+          <FormGroup className="mb-3">
             <FormLabel>Date</FormLabel>
             <FormControl
               type="date"
@@ -115,36 +117,46 @@ const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) 
             />
           </FormGroup>
 
-          {/* Products */}
+          {/* PRODUCTS */}
           <FormGroup className="mb-3">
             <FormLabel>Products</FormLabel>
-            <Accordion>
-              {categories.length > 0 && categories.map((group, index) => (
+
+            <Accordion alwaysOpen>
+              {categories.map((group, index) => (
                 <AccordionItem eventKey={index.toString()} key={group._id}>
-                  <AccordionHeader>{group.type} ({group.category})</AccordionHeader>
-                  <AccordionBody>
+                  <AccordionHeader>
+                    {group.type} ({group.category})
+                  </AccordionHeader>
+
+                  <AccordionBody style={{ maxHeight: '250px', overflowY: 'auto' }}>
                     {group.itemList.map(product => {
                       const selected = form.products.find(p => p.id === product.id);
+
                       return (
                         <div
                           key={product.id}
-                          className="d-flex justify-content-between align-items-center border p-2 rounded mb-2"
+                          className="d-flex justify-content-between align-items-center border rounded p-2 mb-2"
                         >
-                          <div>
-                            <strong>{product.name}</strong> – ₹{product.price}
+                          <div style={{ maxWidth: '60%' }}>
+                            <div className="fw-semibold">{product.name}</div>
+                            <small className="text-muted">₹{product.price}</small>
                           </div>
+
+                          {/* BIGGER TOUCH BUTTONS */}
                           <div className="d-flex align-items-center gap-2">
                             <Button
-                              variant="outline-secondary"
                               size="sm"
+                              variant="outline-secondary"
                               onClick={() => handleProductQuantityChange(product, -1, group.type)}
                             >
                               −
                             </Button>
+
                             <span>{selected?.quantity || 0}</span>
+
                             <Button
-                              variant="outline-secondary"
                               size="sm"
+                              variant="outline-secondary"
                               onClick={() => handleProductQuantityChange(product, 1, group.type)}
                             >
                               +
@@ -159,59 +171,55 @@ const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) 
             </Accordion>
           </FormGroup>
 
-          {/* Discount & Shipping */}
-          <FormGroup className="mb-3 col-md-4 d-flex gap-2">
-            <FormLabel>Discount</FormLabel>
-            <FormSelect
-              name="discountType"
-              value={form.discountType}
-              onChange={handleChange}
-            >
-              <option value="">Select</option>
-              <option value="rs">(₹)</option>
-              <option value="percent">%</option>
-            </FormSelect>
-            <FormControl
-              type="number"
-              name="discount"
-              value={form.discount}
-              onChange={handleChange}
-              placeholder="Amount"
-            />
-          </FormGroup>
+          {/* DISCOUNT + SHIPPING (STACKED MOBILE) */}
+          <div className="d-flex flex-column flex-md-row gap-2">
+            <FormGroup className="mb-3 flex-fill">
+              <FormLabel>Discount</FormLabel>
+              <div className="d-flex gap-2">
+                <FormSelect
+                  name="discountType"
+                  value={form.discountType}
+                  onChange={handleChange}
+                >
+                  <option value="">Type</option>
+                  <option value="rs">₹</option>
+                  <option value="percent">%</option>
+                </FormSelect>
 
-          <FormGroup className="mb-3 col-md-3">
-            <FormLabel>Shipping</FormLabel>
-            <FormControl
-              type="number"
-              name="shipping"
-              value={form.shipping}
-              onChange={handleChange}
-            />
-          </FormGroup>
+                <FormControl
+                  type="number"
+                  name="discount"
+                  value={form.discount}
+                  onChange={handleChange}
+                />
+              </div>
+            </FormGroup>
 
-          {/* Totals */}
+            <FormGroup className="mb-3 flex-fill">
+              <FormLabel>Shipping</FormLabel>
+              <FormControl
+                type="number"
+                name="shipping"
+                value={form.shipping}
+                onChange={handleChange}
+              />
+            </FormGroup>
+          </div>
+
+          {/* TOTALS */}
           <FormGroup className="mb-3">
             <FormLabel>Total Before Shipping</FormLabel>
-            <FormControl
-              type="number"
-              readOnly
-              value={form.totalBeforeShipping.toFixed(2)}
-            />
+            <FormControl readOnly value={form.totalBeforeShipping.toFixed(2)} />
           </FormGroup>
 
           <FormGroup className="mb-3">
             <FormLabel>Total After Shipping</FormLabel>
-            <FormControl
-              type="number"
-              readOnly
-              value={form.totalAfterShipping.toFixed(2)}
-            />
+            <FormControl readOnly value={form.totalAfterShipping.toFixed(2)} />
           </FormGroup>
 
-          {/* Fulfilled */}
+          {/* STATUS */}
           <FormGroup className="mb-3">
-            <FormLabel>Is order fulfilled?</FormLabel>
+            <FormLabel>Status</FormLabel>
             <FormSelect
               name="isFulfilled"
               value={form.isFulfilled.toString()}
@@ -219,14 +227,14 @@ const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) 
                 setForm(prev => ({ ...prev, isFulfilled: e.target.value === 'true' }))
               }
             >
-              <option value="">Select</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+              <option value="false">Pending</option>
+              <option value="true">Fulfilled</option>
             </FormSelect>
           </FormGroup>
 
+          {/* NOTES */}
           <FormGroup className="mb-3">
-            <FormLabel>Other information</FormLabel>
+            <FormLabel>Notes</FormLabel>
             <FormControl
               as="textarea"
               rows={3}
@@ -235,14 +243,17 @@ const OrderFormModal = ({ show, onClose, onSubmit, isEditMode, form, setForm }) 
               onChange={handleChange}
             />
           </FormGroup>
+
         </Form>
       </ModalBody>
-      <ModalFooter>
+
+      {/* STICKY FOOTER */}
+      <ModalFooter className="position-sticky bottom-0 bg-white">
         <Button variant="secondary" onClick={onClose}>
           Close
         </Button>
         <Button variant="primary" onClick={handleSubmit}>
-          Save Changes
+          Save
         </Button>
       </ModalFooter>
     </Modal>
