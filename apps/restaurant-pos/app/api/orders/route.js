@@ -58,6 +58,8 @@ export async function PUT(req) {
             if (body.status !== undefined) updateFields.status = body.status;
             if (body.discountType !== undefined) updateFields.discountType = body.discountType;  // Capture discount type
             if (body.discountValue !== undefined) updateFields.discountValue = body.discountValue;  // Capture discount value
+            if (body.discountTotal !== undefined) updateFields.discountTotal = body.discountTotal;  // Capture discount value
+
         }
 
 

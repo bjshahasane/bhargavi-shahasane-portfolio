@@ -112,7 +112,7 @@ const MenuDetails = () => {
     <Layout>
       <div className="container">
         <div className="row flex-wrap justify-content-between">
-          <div className="row col-md-9">
+          <div className="row col-md-8">
             <div className="container">
               <div className="row">
                 {menu &&

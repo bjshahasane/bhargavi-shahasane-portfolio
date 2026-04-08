@@ -74,7 +74,7 @@ const TableDetails = ({ orderObj, handleQuantityChange }) => {
 
     const [oStatus, setOStatus] = useState('Unpaid');
     const [dType, setDType] = useState('rs');
-    const [dValue, setDValue] = useState('0');
+    const [dValue, setDValue] = useState('');
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -105,8 +105,12 @@ const TableDetails = ({ orderObj, handleQuantityChange }) => {
         return discountedTotal < 0 ? 0 : discountedTotal;
     };
 
+    console.log("This is discount type and value", dType, dValue,Number(calculateDiscountedTotal()));
+
     const addUpdateOrder = async () => {
         dispatch(showLoader(true));
+
+        
 
         const payload = {
             orderId: orderId || generateOrderId(),
@@ -166,7 +170,7 @@ const TableDetails = ({ orderObj, handleQuantityChange }) => {
     };
 
     return (
-        <div className="col-12 col-md-5 col-lg-3 mt-3">
+        <div className="col-12 col-md-4  mt-3">
 
             <div className="detail-box p-3 p-md-4 rounded d-flex flex-column justify-content-between">
 

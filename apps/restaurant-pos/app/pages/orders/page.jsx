@@ -97,10 +97,10 @@ const Orders = () => {
     return (
         <Layout>
             <div className="container">
-                <div className="row">
+                <div className="row flex-wrap justify-content-between">
 
                     {/* LEFT SIDE */}
-                    <div className="col-12 col-xl-8 d-flex flex-column p-2 p-md-3">
+                    <div className="col-12 col-md-8 col-xl-8 d-flex flex-column p-2 p-md-3">
                         <div className="sort-controls row col-md-12">
                             <div className='col-md-3'>
                                 <label htmlFor="sortOrder">Sort by Date:</label>
@@ -132,7 +132,7 @@ const Orders = () => {
                             </div>
                         </div>
                         <div className="table-responsive">
-                            <table className="table mt-1" style={{ height: 'fit-content' }}>
+                            <table className="table text-center mt-1" style={{ height: 'fit-content' }}>
                                 <thead>
                                     <tr>
                                         <th scope="col">Order</th>
@@ -242,9 +242,9 @@ const Orders = () => {
                     </div>
 
                     {selectedOrder && (
-                        <div className="col-12 col-xl-4">
+                        // <div className="col-12 col-xl-4">
                             <TableDetails orderObj={selectedOrder} />
-                        </div>
+                        // </div>
                     )}
                 </div>
             </div>
