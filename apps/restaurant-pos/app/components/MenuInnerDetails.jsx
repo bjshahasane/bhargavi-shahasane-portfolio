@@ -6,7 +6,7 @@ import OrderManagement from './OrderManagement';
 const MenuInnerDetails = ({ option, handleQuantityChange, initialQuantity }) => {
   return (
     <div className="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2 mb-4">
-      <div className="card h-100 border-0 shadow-sm menu-card">
+      <div className="card border-0 shadow-sm menu-card">
         <div className="card-body d-flex flex-column justify-content-between">
 
           <div>
@@ -26,6 +26,7 @@ const MenuInnerDetails = ({ option, handleQuantityChange, initialQuantity }) => 
         .menu-card {
           border-radius: 14px;
           min-height: 120px;
+          min-width: fit-content;
           transition: all 0.2s ease;
         }
 

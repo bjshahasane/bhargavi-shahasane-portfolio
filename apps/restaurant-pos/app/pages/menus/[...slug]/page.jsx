@@ -122,7 +122,7 @@ const MenuDetails = () => {
                       className={`card col-md-2 m-2 menu-card ${
                         currentMenu === item.categoryName
                           ? 'selected'
-                          : 'border-0'
+                          : 'border-2'
                       }`}
                       onClick={() => handleMenu(item.categoryName)}
                     >
@@ -133,7 +133,7 @@ const MenuDetails = () => {
                   ))}
               </div>
               <hr />
-              <div className="row">
+              <div className="row gap-4">
                 {currentMenuOptions.map((option) => (
                   <MenuInnerDetails
                     key={option.id}
