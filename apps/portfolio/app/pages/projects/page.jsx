@@ -8,7 +8,7 @@ const projects = [
     title: "Restaurant POS System",
     oneLiner:
       "Full-stack POS to manage orders, tables, menu and billing with role-based access.",
-    href: "pages/projects/restaurant-pos",
+    href: "/pages/projects/restaurant-pos",
     liveUrl: process.env.NEXT_PUBLIC_POS_URL,
     tags: ["Next.js", "MongoDB", "Node.js", "Redux"],
   },
@@ -16,7 +16,7 @@ const projects = [
     title: "Order-Driven Production System",
     oneLiner:
       "Centralized production queue (pending/completed) with dashboards and analytics.",
-    href: "pages/projects/production-management",
+    href: "/pages/projects/production-management",
     liveUrl: process.env.NEXT_PUBLIC_PROD_URL,
     tags: ["Next.js", "MongoDB", "Dashboards", "Charts"],
   },
